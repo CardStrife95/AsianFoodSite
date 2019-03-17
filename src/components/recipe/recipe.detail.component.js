@@ -14,6 +14,34 @@ export default class Edit extends Component{
         
     }
 
+    OnChangeRecipeName(e){
+        this.setState({
+            recipe_name : e.target.value            
+        });
+    }
+
+    OnChangeRecipeAuthor(e){
+        this.setState({
+            recipe_author:e.target.value
+        });
+    }
+
+    OnChangeRecipeCountry(e){
+        this.setState({
+            recipe_country: e.target.value
+        });
+    }
+
+    OnChangeRecipeStepText = idx => e =>{
+        const newRecipeSteps = this.state.recipe_steps.map((recipe_step,sidx)=>{
+            if(idx !== sidx) return recipe_step;
+            return{...recipe_step,step_text:e.target.value}
+        });
+        this.setState({
+            recipe_steps:newRecipeSteps
+        });
+    }
+
     componentDidMount(){
         axios.get('http://localhost:4000/recipe/'+this.props.match.params.id).then(
             res =>{
