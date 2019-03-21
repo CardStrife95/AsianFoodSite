@@ -63,6 +63,7 @@ export default class Edit extends Component{
             console.log(err);
         });
     }
+    
     render(){
         return(
             <div className="card ">
@@ -79,7 +80,7 @@ export default class Edit extends Component{
                     </ul>
                 
                 <div className="card-body">
-                    <p>Created By {this.state.recipe_author} type of food:  {this.state.recipe_country}</p>
+                    <p>Created By {this.state.recipe_author} type of Country {this.state.recipe_country}</p>
                 </div>
             </div>
         );

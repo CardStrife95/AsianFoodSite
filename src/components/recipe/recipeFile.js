@@ -24,6 +24,7 @@ export default class RecipeFile extends Component{
     render(){
         return(
             <li className="list-inline-item">
+            <div className="col-sm-10">
             <div className="card">
                 <div className="card-header">
                     <h2>{this.props.obj.recipe_name}</h2>
@@ -37,6 +38,7 @@ export default class RecipeFile extends Component{
                    <Link to={"/recipe/edit/"+this.props.obj._id} className="btn btn-success"> Edit</Link>
                    <button onClick={this.delete} className="btn btn-danger">Remove </button>
                 </div>
+            </div>
             </div>
             </li>
         );
