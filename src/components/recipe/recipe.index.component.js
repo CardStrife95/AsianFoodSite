@@ -31,7 +31,7 @@ export default class Index extends Component{
 
     render(){
         return(
-            <div className="">
+            <div className="col-sm-9">
                 <p>Welcome to the list of recipes.</p>
                 <div className="col-sm-5">
                     <ul className="list-inline"> 

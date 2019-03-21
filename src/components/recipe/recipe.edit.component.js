@@ -107,7 +107,7 @@ export default class Edit extends Component{
     
     render(){
         return(
-            <div style={{marginTop:10}}>
+            <div className="col-md-8" style={{marginTop:10}}>
                 <h3>Add New Recipe</h3>
                 <form onSubmit={this.OnSubmit}>
                     <div className="form-group">
