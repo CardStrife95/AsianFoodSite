@@ -15,10 +15,10 @@ class App extends Component {
           <div className="jumbotron text-center" >
             <h1>Asian food site</h1>
           </div>
-          <nav className="navbar navbar-expand-sm navbar-light bg-light">
+          <nav className="navbar navbar-expand-lg  navbar-light bg-light">
             <Link to={'/'} className="navbar-brand">Asian Food Site</Link>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul className="navbar-nav mr-auto">
+              <ul className="nav navbar-nav mr-auto">
                 <li className="nav-item"> <Link to={'/index'} className="navbar-link">Index</Link></li>
                 <li className="nav-item"> <Link to={'/news'} className="navbar-link">News</Link></li>
                 <li className="nav-item"> <Link to={'/recipe'} className="navbar-link">Recipes</Link></li>
@@ -28,10 +28,11 @@ class App extends Component {
           </nav><br />
           <h1>Welcome to Asian food site !!</h1>
           <Switch>
-            <Route exact path='/index' component={Index} />
-            <Route path='/news' component={ News }/>
-            <Route path='/contact' component={Contact} />
-            <Route path='/recipe' component={Recipe} />
+            <Route exact path='/' component={Index} />
+            <Route path='/index/' component={Index} />
+            <Route path='/news/' component={ News }/>
+            <Route path='/contact/' component={Contact} />
+            <Route path='/recipe/' component={Recipe} />
           </Switch>
         </div>  
       </Router>

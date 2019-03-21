@@ -24,16 +24,16 @@ export default class RecipeFile extends Component{
     render(){
         return(
             <li className="list-inline-item">
-            <div className="panel panel-primary">
-                <div className="panel-heading">
+            <div className="card">
+                <div className="card-header">
                     <h2>{this.props.obj.recipe_name}</h2>
                 </div>
-                <div className="panel-body">
-                    <p>written by {this.props.obj.recipe_author}</p>
+                <div className="card-body">
+                    <p>written by {this.props.obj.recipe_author}</p><br />
                     <p>Country : {this.props.obj.recipe_country}</p>
                 </div>
-                <div className="panel-footer">
-                   <Link to={"/recipe/"+this.props.obj._id} className="btn btn-secondary">View</Link>
+                <div className="card-body">
+                   <Link to={"/recipe/detail/"+this.props.obj._id} className="btn btn-secondary">View</Link>
                    <Link to={"/recipe/edit/"+this.props.obj._id} className="btn btn-success"> Edit</Link>
                    <button onClick={this.delete} className="btn btn-danger">Remove </button>
                 </div>
