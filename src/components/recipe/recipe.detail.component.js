@@ -8,7 +8,7 @@ export default class Edit extends Component{
         this.OnChangeRecipeName = this.OnChangeRecipeName.bind(this);
         this.OnChangeRecipeAuthor = this.OnChangeRecipeAuthor.bind(this);
         this.OnChangeRecipeCountry = this.OnChangeRecipeCountry.bind(this);
-        this.OnChangeRecipeStepText = this.On
+        this.OnChangeRecipeStepText = this.OnChangeRecipeStepText.bind(this);
         
 
         this.state = {
@@ -18,6 +18,21 @@ export default class Edit extends Component{
             recipe_steps:[]
         }
         
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:4000/recipe/'+this.props.match.params.id).then(
+            res =>{
+                this.setState({
+                    recipe_name:res.data.recipe_name,
+                    recipe_author:res.data.recipe_author,
+                    recipe_country:res.data.recipe_country,
+                    recipe_steps:res.data.recipe_steps
+                });
+            }
+        ).catch(err=>{
+            console.log(err);
+        });
     }
 
     OnChangeRecipeName(e){
@@ -49,20 +64,7 @@ export default class Edit extends Component{
     }
 
 
-    componentDidMount(){
-        axios.get('http://localhost:4000/recipe/'+this.props.match.params.id).then(
-            res =>{
-                this.setState({
-                    recipe_name:res.data.recipe_name,
-                    recipe_author:res.data.recipe_author,
-                    recipe_country:res.data.recipe_country,
-                    recipe_steps:res.data.recipe_steps
-                });
-            }
-        ).catch(err=>{
-            console.log(err);
-        });
-    }
+    
     
     render(){
         return(
