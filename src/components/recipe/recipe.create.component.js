@@ -93,11 +93,19 @@ export default class Create extends Component{
         });
     }
     */
+
+    /*
    OnRemoveRecipeStep(idx){
        this.setState({
            recipe_steps : this.state.recipe_steps.filter((s,sidx)=>idx !== sidx)
        });
    }
+   */
+   OnRemoveRecipeStep = idx =>() =>{
+    this.setState({
+        recipe_steps : this.state.recipe_steps.filter((s,sidx)=>idx !== sidx)
+    });
+}
     
     OnSubmit(e){
         e.preventDefault();
@@ -156,7 +164,7 @@ export default class Create extends Component{
                     </div>
                     {this.state.recipe_steps.map((val,idx)=>{
                         return(
-                            <div className="form-group">
+                            <div className="form-group" key={idx}>
                             <label>Step {idx+1} : </label>
                             <input type="text" className="form-control"
                                 value={this.state.recipe_steps[idx].step_text}
