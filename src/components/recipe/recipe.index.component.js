@@ -31,9 +31,9 @@ export default class Index extends Component{
 
     render(){
         return(
-            <div className="col-sm-9">
+            <div>
                 <p>Welcome to the list of recipes.</p>
-                <div className="col-sm-5">
+                <div >
                     <ul className="list-inline"> 
                         {this.fileRow()}
                     </ul>

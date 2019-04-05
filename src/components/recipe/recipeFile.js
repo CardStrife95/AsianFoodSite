@@ -24,7 +24,7 @@ export default class RecipeFile extends Component{
     render(){
         return(
             <li className="list-inline-item">
-            <div className="col-sm-10">
+            <div >
             <div className="card">
                 <div className="card-header">
                     <h2>{this.props.obj.recipe_name}</h2>

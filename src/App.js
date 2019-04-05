@@ -15,7 +15,7 @@ class App extends Component {
           <div className="jumbotron text-center" >
             <h1>Asian food site</h1>
           </div>
-          <nav className="navbar navbar-expand-lg  navbar-light bg-light">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">>
             <Link to={'/'} className="navbar-brand">Asian Food Site</Link>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="nav navbar-nav mr-auto">

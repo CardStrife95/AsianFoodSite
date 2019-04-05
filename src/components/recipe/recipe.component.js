@@ -13,9 +13,9 @@ export default class Recipe extends Component{
                 <div>
                 <h2>Recipe</h2>
                 <div className="row">
-                <div className="col-sm-3">
+                <div className="col-sm-2">
                     <Link to={'/recipe/create'} className="btn btn-primary">Add a new Recipe</Link>
-                </div>
+                
                 <br />
                 </div>
                 <Switch>
@@ -25,7 +25,7 @@ export default class Recipe extends Component{
                     <Route path='/recipe/detail/:id' component={Detail}/>
                     <Route path='/recipe/edit/:id' component={Edit} />
                 </Switch>
-           
+                </div>
             </div>
             </Router>
         );

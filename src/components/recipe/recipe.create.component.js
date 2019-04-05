@@ -129,6 +129,8 @@ export default class Create extends Component{
             recipe_country: '',
             recipe_steps: []
         }
+
+        this.props.history.push('/recipe');
         
     }
     
