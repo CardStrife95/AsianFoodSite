@@ -1,11 +1,12 @@
 const express = require('express')
 const recipeRoute = express.Router()
+const auth = require('./auth')
 
 
 let Recipe = require('../models/recipe.model')
 
 
-recipeRoute.route('/').get(function (req, res) {
+recipeRoute.route('/').get(auth.optional,function (req, res) {
     Recipe.find(function (err, recipes) {
         if (err) {
             console.log(err);

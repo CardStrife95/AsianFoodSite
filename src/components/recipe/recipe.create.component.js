@@ -108,20 +108,20 @@ export default class Create extends Component{
 }
     
     OnSubmit(e){
-        e.preventDefault();
+        e.preventDefault()
         console.log(`${this.state.recipe_name},${this.state.recipe_author},${this.state.recipe_country}`);
         const obj = {
             recipe_name: this.state.recipe_name,
             recipe_author: this.state.recipe_author,
             recipe_country: this.state.recipe_country,
             recipe_steps:this.state.recipe_steps
-        };
+        }
         
         axios.post('http://localhost:4000/recipe/add',obj).then(
             res=>console.log(res)
         ).catch(err=>{
-            console.log("Error on add : "+err);
-        });
+            console.log("Error on add : "+err)
+        })
 
         this.setState={
             recipe_name: '',
@@ -130,7 +130,7 @@ export default class Create extends Component{
             recipe_steps: []
         }
 
-        this.props.history.push('/recipe');
+        this.props.history.push('/recipe')
         
     }
     

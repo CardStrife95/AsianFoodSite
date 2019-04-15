@@ -1,26 +1,51 @@
 const express = require('express')
 const userRoute = express.Router()
+const passport = require('passport')
+const auth = require('./auth')
 
 let User = require('../models/user.model');
 let Recipe = require('../models/recipe.model')
 
-userRoute.route('/').get(function (req, res) {
+userRoute.route('/').get(auth.optional, function (req, res) {
     User.find(function (err, users) {
         if (err) throw err
         else {
             console.log(users)
-            res.json(users)
+            return res.json(users)
         }
     })
 })
 
-userRoute.route('/add').post(function (req, res) {
-    let user = new User(req.body)
-    user.save()
+userRoute.route('/add').post(auth.optional, function (req, res) {
+    //console.log(res.body)
+    let user = req.body
+    console.log(user)
+
+    if (!user.user_email) {
+        return res.status(422).json({
+            errors: {
+                email: 'is required',
+            },
+        })
+    }
+
+    if (!user.user_password) {
+        return res.status(422).json({
+            errors: {
+                password: 'is required',
+            },
+        })
+    }
+
+    let finalUser = new User(user)
+
+    finalUser.setPassword(user.user_password)
+
+    finalUser.save()
         .then(
             user => {
                 console.log('SUCCESS')
-                res.status(200).json({ 'user': 'user in added successfully' })
+                res.status(200).json({ 'user': finalUser.toAuthJson() })
             }
         )
         .catch(
@@ -29,9 +54,26 @@ userRoute.route('/add').post(function (req, res) {
                 res.status(400).send('unable to save to database')
             }
         )
+
 })
 
-userRoute.route('/:id').get(function (req, res) {
+userRoute.route('/login').post(auth.optional, function (req, res) {
+    let user = req.body;
+    if (!user.user_email) {
+        res.status(422).json({
+            errors: { email: 'is required', },
+        })
+    }
+    if (!user.user_password) {
+        res.status(422).json({
+            errors: {
+                password: 'is required',
+            },
+        })
+    }
+})
+
+userRoute.route('/:id').get(auth.optional, function (req, res) {
     let id = req.params.id
     User.findById(id, function (err, user) {
         if (err) throw err
@@ -39,21 +81,40 @@ userRoute.route('/:id').get(function (req, res) {
     })
 })
 
-userRoute.route('/:id').post(function(req,res){
+userRoute.route('/update/:id').post(function (req, res) {
     let id = req.params.id
-    User.findByIdAndUpdate(id,function(err,user){
-        if(err) throw err
-        if(user){
+    User.findByIdAndUpdate(id, function (err, user) {
+        if (err) throw err
+        if (user) {
             user.user_name = req.params.user_name
             user.user_country = req.params.user_country
             user.save()
-            .then(user=>{
-                console.log("Successfully updated")
-                res.json({200:'Successfully updated"'})
-            })
-            .catch()
-        }else{
-            res.status(404).json({404:'Cannot findthe user'})
+                .then(user => {
+                    console.log("Successfully updated")
+                    res.json({ 200: 'Successfully updated"' })
+                })
+                .catch(err => {
+                    console.error(err)
+                    res.json('Error on updating on user '.id)
+                })
+        } else {
+            res.status(404).json({ 404: 'Cannot find the user' })
+        }
+    })
+})
+
+userRoute.route('/:id/recipes').get(function (req, res) {
+    let id = req.params.id
+    User.findById(id, function (err, user) {
+        if (err) throw err
+        if (!user) {
+            res.status(404).json({ 404: 'Cannot find the user '.id })
+        } else {
+            if (user.recipe_create.length > 0) {
+                res.json(user.recipe_create)
+            } else {
+                res.json('No created recipe')
+            }
         }
     })
 })
@@ -73,6 +134,10 @@ userRoute.route('/:id/recipe/:idrecipe/fav').post(function (req, res) {
                 if (err) {
                     throw err
                 }
+                if (!recipe) {
+                    console.error('Error on User Fav : Cannot find recipe')
+                    res.status(404).json({ 404: 'Cannot find the recipe in the database' })
+                }
                 recipe.save()
                     .then(recipe => {
                         res.json('favorite add')
@@ -91,6 +156,14 @@ userRoute.route('/:id/recipe/:idrecipe/fav').post(function (req, res) {
             })
         }
 
+    })
+})
+
+userRoute.route('/delete/:id').get(function (req, res) {
+    let id = req.params.id
+    User.findByIdAndRemove({ _id: id }, function (err, user) {
+        if (err) throw err
+        else res.json('Successfully removed')
     })
 })
 
