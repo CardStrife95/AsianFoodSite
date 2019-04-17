@@ -23,13 +23,13 @@ export default class NavBar extends Component {
                     </ul>
                     <ul className="nav navbar-nav navbar-right">
                         <li className="nav-item">
-                            <Link class="navbar-link" to={'/login'}>Login</Link>
+                            <Link className="navbar-link" to={'/login'}>Login</Link>
                         </li>
                         <li className="nav-item">
-                            <Link class="navbar-link" to={'/register'}>Register</Link>
+                            <Link className="navbar-link" to={'/register'}>Register</Link>
                         </li>
                         <li className="nav-item">
-                            <Link class="navbar-link" to={'/logout'}>Logout</Link>
+                            <Link className="navbar-link" to={'/logout'}>Logout</Link>
                         </li>
                     </ul>
                 </div>

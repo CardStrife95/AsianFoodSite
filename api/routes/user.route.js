@@ -1,6 +1,5 @@
 const express = require('express')
 const userRoute = express.Router()
-const passport = require('passport')
 const auth = require('./auth')
 
 let User = require('../models/user.model');
@@ -59,18 +58,21 @@ userRoute.route('/add').post(auth.optional, function (req, res) {
 
 userRoute.route('/login').post(auth.optional, function (req, res) {
     let user = req.body;
-    if (!user.user_email) {
+    console.log(user)
+    if (!user.user_email_or_name || user.user_email_or_name === null) {
         res.status(422).json({
             errors: { email: 'is required', },
         })
-    }
-    if (!user.user_password) {
+       //res.json({'422':'email is required'})
+    } else if (!user.user_password || user.user_password === null) {
         res.status(422).json({
             errors: {
                 password: 'is required',
             },
         })
     }
+    //User.findOne({user_name:user.user_email_or_name},)
+    //console.log(user)
 })
 
 userRoute.route('/:id').get(auth.optional, function (req, res) {
@@ -103,12 +105,13 @@ userRoute.route('/update/:id').post(function (req, res) {
     })
 })
 
-userRoute.route('/:id/recipes').get(function (req, res) {
+userRoute.route('/:id/recipes').get(auth.optional, function (req, res) {
     let id = req.params.id
     User.findById(id, function (err, user) {
         if (err) throw err
         if (!user) {
             res.status(404).json({ 404: 'Cannot find the user '.id })
+            console.error('Cannot find the user '.id)
         } else {
             if (user.recipe_create.length > 0) {
                 res.json(user.recipe_create)
